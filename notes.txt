@@ -1,0 +1,7 @@
+horizonatal mode
+header support
+footer support
+separator support
+pull to refesh
+scroll loading
+multiple column support
