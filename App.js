@@ -26,6 +26,7 @@ class App extends Component {
       ],
       selectedId: null,
       refreshing: false,
+      viewableItems: [],
     };
   }
   componentDidMount = async () => {
@@ -43,6 +44,10 @@ class App extends Component {
     console.log('smsms');
   };
 
+  onViewableItemsChanged = ({viewableItems}) => {
+    console.log('whatttt');
+    this.setState({viewableItems});
+  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -122,11 +127,28 @@ class App extends Component {
           /////////////
           ///////
 
-          viewabilityConfig={
-            {
-              // itemVisiblePercentThreshold: 250,
-            }
-          }
+          /*
+
+n this example, we have a FlatList component that renders a list of items.
+ We set the onViewableItemsChanged prop to a method onViewableItemsChanged defined 
+ in the component. This method gets called whenever 
+the visibility of items in the list changes.
+
+The viewabilityConfig prop is used to configure when an item is considered visible. 
+In this case, we set itemVisiblePercentThreshold to 50, meaning an item is considered
+ visible if at least 50% of it is on the screen.
+
+When the visibility of items changes, the onViewableItemsChanged method updates the 
+component's state with the array of currently viewable items. Finally, we display
+ the number of viewable items in a Text component below the FlatList.
+
+*/
+
+          onViewableItemsChanged={this.onViewableItemsChanged}
+          viewabilityConfig={{
+            itemVisiblePercentThreshold: 50,
+          }}
+
           // windowSize={15}
           // bounces={true}
           /*
@@ -140,6 +162,7 @@ class App extends Component {
           
           */
         />
+        <Text>Viewable items: {this.state.viewableItems.length}</Text>
         {/* <Button
           title="Select Item 2"
           onPress={() => this.handleSelectItem('2')} // Selecting item 2
